@@ -55,4 +55,4 @@ print("[" + str7 + "]")
 
 str8 = "aaab 이렇게? cd"
 print(str8.strip("abcd"))
-print(str8.strip("abcd "))
+print(str8.strip("abcd ")) .
