@@ -74,3 +74,69 @@ print(type(machines[0]))
 
 print(type(mixed[1]))
 print(type(mixed[-1]))
+print(type(mixed))
+
+# 리스트 슬라이싱
+# 리스트명[시작:끝:간격]
+# 시작, 끝, 간격 인덱스는 모두 생략 가능 (문자열과 동일)
+
+# temps = [35, 36, 37, 38]
+print(temps[1:3])  # [36, 37]
+print(temps[1:2])  # [36]
+print(temps[:2])  # [35, 36]
+print(temps[:2], temps[3:])  # [35, 36] [38]
+print(temps[::1])  # [35, 36, 37, 38]
+print(temps[::3])  # [35, 38]
+print(temps[100:999])
+
+# 인덱싱 vs 슬라이싱
+# 인덱싱 temps[0]은 값 하나(35)
+# 슬라이싱 temps[0:2]은 리스트 ([35, 36])
+# 슬라이싱은 영역을 잘라내는 역할이기 때문에 리스트를 반환하는 것
+# temps[100:999] 에러 발생하지 않음
+# 슬라이싱은 '있는 만큼만' 잘라주기 때문에 에러 발생하지 않음
+
+temps = [42, 44, 47, 49, 46, 43, 45, 48, 40, 41]
+print(temps[:3])  # [42, 44, 47]
+print(temps[-3:])  # [48, 40, 41]
+print(len(temps[:3]))  # 3
+
+
+hours = [12, 15, 18, 20, 17, 14, 22, 25, 28, 24, 19, 16]
+first = hours[:6]
+second = hours[6:]
+print(first)  # [12, 15, 18, 20, 17, 14]
+print(second)  # [22, 25, 28, 24, 19, 16]
+print(len(first), len(second))  # 6 6
+
+print("원본:", temps)
+temps[2] = 999
+print("2번 인덱스 값 변경 결과:", temps)
+
+# in (존재 확인)
+# machines = ["펌프", "압축기", "모터"]
+print("펌프" in machines)
+print("펌프" not in machines)
+
+print("프레스" in machines)
+
+# 특정 값의 인덱스 찾기
+# machines = ["펌프", "압축기", "모터"]
+
+i = machines.index("압축기")
+print(i)
+
+# .index() 메서드는 리스트에서 가장 처음 등장하는 인덱스만 반환
+machines2 = ["펌프", "압축기", "모터", "압축기"]
+
+i2 = machines.index("압축기")
+print(i2)
+
+temps = [31, 34, 39, 37, 35]
+print(39 in temps)  # True
+
+i = temps.index(39)
+temps[i] = 33
+
+print(temps)  # [31, 34, 33, 37, 35]
+print(39 in temps)  # False
