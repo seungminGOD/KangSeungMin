@@ -189,3 +189,23 @@ print(data)
 # .append(): 리스트의 가장 마지막에 값을 추가
 # insert(): 첫 번째 인자인 위치 인덱스에 값을 삽입
 # extend(): 두 리스트를 하나의 리스트로 합체
+
+temps = []
+temps.append(30)
+print(temps)
+temps.insert(0, 28)
+print(temps)  # [28, 30]
+temps.extend([31, 32])
+print(temps)  # [28, 30, 31, 32]
+
+# 리스트에서 요소 삭제
+list1 = ["딸기", "사과", "배", "포도", "수박", "망고"]
+list1.remove("수박")
+print(list1)
+
+# .pop(인덱스): 인덱스로 특정 요소를 삭제할 때 사용
+# 삭제한 인덱스의 값을 반환
+list1.pop(0)
+print(list1)
+print(list1.pop(2))
+print(list1)
