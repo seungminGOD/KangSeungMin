@@ -172,7 +172,7 @@ print("복사본 new_nums2에 222 append 결과:", new_nums2)
 # 리스트에서 원하는 위치에 값을 삽입
 # 원본 배열에 바로 삽입
 nums.insert(3, 333)
-pritn(nums)
+print(nums)
 
 data = [1, 2, 3]
 new_data = [7, 8, 9]
@@ -209,3 +209,34 @@ list1.pop(0)
 print(list1)
 print(list1.pop(2))
 print(list1)
+
+# del: 인덱스로 리스트의 요소 삭제
+# 삭제한 인덱스 값 반환
+list1.pop(0)
+print(list1)
+
+
+temps = [25, 26, 24, 28, 26, 999]
+temps.remove(999)
+print(temps)  # [25, 26, 24, 28, 26]
+x = temps.pop(1)
+print(x)  # [26]
+del temps[0]
+print(temps)  # [24, 28, 26]
+
+n = [37, 2, 8, 109, 1004, -1, 22]
+print("n 리스트 원본:", n)
+
+n.sort()
+
+# 리스트 안의 값 갯수 구하기
+# .count(찾을 값)
+
+f = ["텀블러", "일회용컵", "일회용컵", "텀블러", "텀블러", "일회용컵"]
+print(f.count("일회용컵"))
+print(f)  # 원본 배열에 변화 없음
+
+# 특정 값의 위치 찾기
+# .index(위치를 찾을 값)
+print(f.index("일회용컵"))
+print(f)
