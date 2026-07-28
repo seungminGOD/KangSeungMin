@@ -140,3 +140,52 @@ temps[i] = 33
 
 print(temps)  # [31, 34, 33, 37, 35]
 print(39 in temps)  # False
+
+# 리스트 값 추가
+# .append(추가할값)
+# 리스트의 가장 마지막에 값을 추가
+nums = [1, 2, 3, 4, 5]
+
+nums.append(999)
+print(nums)
+
+# 만약 원본 리스트와 특정 값을 추가한 리스트 둘 다 필요하다면 원본 리스트를 복사해서 리스트 수정 진행
+# nums = [1, 2, 3, 4, 5, 999] > 기존 리스트는 원본으로 둠
+new_nums = nums
+print(new_nums)
+
+new_nums.append(111)
+print("원본 nums 리스트:", nums)
+print("복사본 new_nums에 111 append 결과:", new_nums)
+# 기대 결과: [1, 2, 3, 4, 5, 999]
+# 실제 결과: [1, 2, 3, 4, 5, 999, 111]
+# 복사한 메모리 주소에 append를 했기 때문에 원본까지 영향을 받음
+
+# 이를 해결하기 위해서 .copy()라는 메서드를 사용
+# new_nums2는 새로운 메모리에 nums 배열을 새로 저장
+new_nums2 = nums.copy()
+new_nums2.append(222)  # nums 배열에 영향을 미치지 않고 사용
+print("원본 nums 리스트:", nums)
+print("복사본 new_nums2에 222 append 결과:", new_nums2)
+
+# .insert(위치, 값)
+# 리스트에서 원하는 위치에 값을 삽입
+# 원본 배열에 바로 삽입
+nums.insert(3, 333)
+pritn(nums)
+
+data = [1, 2, 3]
+new_data = [7, 8, 9]
+
+
+# 함수의 반환 개념을안 뒤에 확인할 내용
+print(data.extend(new_data))
+
+print(data)
+
+
+# 정리
+# 오늘 꼭 알아야 하는 리스트 수정 메서드와 개념
+# .append(): 리스트의 가장 마지막에 값을 추가
+# insert(): 첫 번째 인자인 위치 인덱스에 값을 삽입
+# extend(): 두 리스트를 하나의 리스트로 합체
