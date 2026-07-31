@@ -72,7 +72,27 @@ print(c)
 # 3. # 변수 3
 # )
 
-one, two, three = unpacking
-print("one:", one)
-print("two:", two)
-print("three:", three)
+# one, two, three = unpacking
+# print("one:", one)
+# print("two:", two)
+# print("three:", three)
+
+# ===================================
+
+tup = ("normal", "normal", "warning", "normal", "warning")
+
+# 튜플의 길이
+print(len(tup))  # 5
+print(tup.count("warning"))  # 2
+
+# 특정 값이 처음 나온 인덱스
+# print(tup.index("warning"))  # 2
+# print(tup.index("Warning"))  # ValueError: tuple.index(x): x not in tuple
+# 찾고자 하는 값이 없으면 error 발생
+
+# ===============================================
+
+# 튜플 리스트
+# 리스트 안에 복수의 튜플을 담은 것을 표현
+
+# 언패킹을 사용해서 접근한 튜플 내부의 값을 변수에 바로 할당해서 접근
