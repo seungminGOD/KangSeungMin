@@ -10,11 +10,11 @@ print(type(empty_set))
 real_empty_set = set()
 print(type(real_empty_set))
 
-logs = ["S01", "S02", "S01", "S03", "S01"]
-unique = {logs}
-print(type(unique))
+# logs = ["S01", "S02", "S01", "S03", "S01"]
+# unique = {logs}
+# print(type(unique))
 
-unique = set(logs)
+# unique = set(logs)
 print(type(unique))
 print(unique)
 
@@ -45,3 +45,9 @@ print(alerts)
 sorted = sorted(alerts)
 print(sorted)
 print(type(sorted))
+
+# 집합 연산
+hour_14 = {"WQR_01", "WQR_06", "WQR_07", "WQR-02"}
+hour_15 = {"WQR_01", "WQR_07", "WQR_03", "WQR_09", "WQR_11"}
+
+print(hour_14.union(hour_15))
