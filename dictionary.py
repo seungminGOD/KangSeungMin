@@ -178,3 +178,5 @@ print(sensors)
 print(sensors.get("면적", -1))
 print("진동" in sensors)
 print("면적" in sensors)
+
+print("test")
