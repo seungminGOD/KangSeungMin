@@ -1,63 +1,66 @@
-# 실습 1. import 세 방식으로 모듈 가져오기
-
-import math
-
-print(math.sqrt(16))
-from math import sqrt
-
-print(sqrt(16))
-import math as m
-
-print(m.sqrt(16))
-
-# 실습 2. 표준 라이브러리로 센서값 만들기
-
-import random
-import math
-
-num = random.randint(1, 100)
-print("센서값:", num)
-
-print("제곱근:", math.sqrt(num))
-
-# 실습3. os로 폴더 목록 살펴보기
+# 실습 2. with open으로 파일에 쓰기
 
 import os
+import sys
+import csv
 
-path = os.getcwd()
-print("현재 경로:", path)
+csv_path = os.path.join("data", "result.csv")
 
-files = os.listdir()
+with open(csv_path, "w", encoding="utf-8") as f:
+    writer = csv.writer(f)
+    writer.writerow(["시각", "설비"])
+    writer.writerow(["09:00", "PUMP-01"])
 
-for file in files:
-    print("목록:", file)
-
-    if file.endswith(".csv"):
-        print("csv파일:", file)
-
-# 실습4. os로 파일 존재 확인하기
+# 실습 3. a 모드로 기록 이어붙이기
 
 import os
+import csv
 
-path = os.path.join(os.getcwd(), "08_press.csv")
-print("파일 경로:", path)
+csv_path = os.path.join("data", "result.csv")
 
-result = os.path.exists(path)
-print(result)
+with open(csv_path, "a", encoding="utf-8", newline="") as f:
+    writer = csv.writer(f)
+    writer.writerow(["10:00", "PUMP-02"])
 
-if result:
-    print("파일 있음")
-else:
-    print("파일 없음")
+with open(csv_path, "r", encoding="utf-8") as f:
+    print(f.read())
 
-# 실습5. datetime으로 점검 기록 남기기
+# 실습 4. csv.reader로 CSV 읽기
 
 import os
-from datetime import datetime
+import sys
+import csv
 
-files = os.listdir()
-count = len(files)
+with open(csv_path, "r", encoding="utf-8") as f:
+    print(f.readlines())
+    reader = csv.reader(f)
 
-now = datetime.now()
+    for row in reader:
+        print(row(0))
 
-print(f"파일 {count}개, 점검 시각 {now}")
+
+# 실습 5. csv.writer로 CSV 쓰기
+
+import os
+import csv
+
+csv_path = os.path.join("data", "실습5.csv")
+
+with open(csv_path, "w", newline="", encoding="utf-8") as f:
+    writer = csv.writer(f)
+    writer.writerow(["시각", "설비"])
+    writer.writerow(["15:00", "PUMP-04"])
+
+# 실습 3. 구체적 예외로 입력 검증하기
+
+try:
+    num = int(input("숫자 입력: "))
+    print(100 / num)
+
+except ValueError:
+    print("숫자를 입력하세요.")
+
+except ZeroDivisionError:
+    print("0은 입력할 수 없습니다.")
+
+print("프로그램 종료")

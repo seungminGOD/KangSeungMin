@@ -25,4 +25,5 @@ with open(csv_path, "r", encoding="utf-8") as f:
     print(header)
 
     for row in reader:
+
         print(row[0])  # 각 행(row)마다 리스트로 출력됨

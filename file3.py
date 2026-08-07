@@ -9,7 +9,7 @@ with open(csv_path, "w", encoding="utf-8") as f:
     writer.writerow(["시각", "설비"])
     writer.writerow(["09:00", "PUMP-01"])
 
-    # 실습 5. csv.writer로 CSV 쓰기
+# 실습 5. csv.writer로 CSV 쓰기
 
 import os
 import csv
