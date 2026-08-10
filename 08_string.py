@@ -49,7 +49,7 @@ print("이름 상태")
 backslash = "이름\\상태"
 print(backslash)  # 이름\상태 > 첫 번째 \는 이스케이프 문자라는 것을 알리는 용도
 
-quotes = 'It\'s me'  # 감싸는 따옴표와 str 내부 따옴표의 종류가 같을 때는 \를 사용
+quotes = "It's me"  # 감싸는 따옴표와 str 내부 따옴표의 종류가 같을 때는 \를 사용
 print(quotes)
 
 # 빈 문자열과 공백 문자열의 차이
@@ -68,8 +68,7 @@ state = "정상"
 hour = 1200
 date = "2026-07-16"
 
-card = "설비: " + code + "\n상태: " + state + \
-    "\n가동: " + str(hour) + "\n점검: " + date
+card = "설비: " + code + "\n상태: " + state + "\n가동: " + str(hour) + "\n점검: " + date
 
 print(card)
 
@@ -245,7 +244,7 @@ print(email[0:at])  # layla (레일라)
 print(email[:at])  # 시작 번호가 0이라면 start 생략 가능
 print(email[at:])  # 끝까지 출력하고 싶고, 뒤에 몇 글자가 있는지 모르니 생략
 # 위처럼 시작하면 5번 인덱스부터 출력하기 때문에 @을 포함
-print(email[at+1:])  # at + 1을 하면 @을 포함하지 않고 출력
+print(email[at + 1 :])  # at + 1을 하면 @을 포함하지 않고 출력
 
 # find에서 했던 SQE 뽑아내기 실습 index 사용으로 바꾸기
 sqe = "SQE-00Q8"
@@ -367,7 +366,7 @@ print(user_name.title())  # Kim Chul Soo
 
 # '를 사용한 경우 다른 단어로 인식
 print("i'm full".title())  # I'M Full
-print('i\'m full'.title())  # I'M Full
+print("i'm full".title())  # I'M Full
 
 # ============
 print("=== .strip() ===")
@@ -440,14 +439,14 @@ print("[" + str7 + "]")
 # strip() 메서드에 인자로 들어가는 문자열은 완전히 동일하지 않아도 전부 삭제
 
 str8 = "aaab 이렇게? cd"
-print(str8.strip('abcd'))  # " 이렇게? "
-print(str8.strip('abcd '))  # "이렇게?"
-print(str8.strip('bc'))  # "aaab 이렇게? cd"
-print(str8.strip('ab'))  # " 이렇게? cd"
+print(str8.strip("abcd"))  # " 이렇게? "
+print(str8.strip("abcd "))  # "이렇게?"
+print(str8.strip("bc"))  # "aaab 이렇게? cd"
+print(str8.strip("ab"))  # " 이렇게? cd"
 
 # GPT한테 질문하는 법
 str8 = "aaab 이렇게? cd"
-print(str8.strip('abcd'))  # " 이렇게? "
+print(str8.strip("abcd"))  # " 이렇게? "
 
 # 지금 출력 결과는 " 이렇게? " 이렇게 나오고 있어
 # 내가 생각했을 때 ==처럼 정확하게 "abcd" 순서가 아니면
@@ -465,7 +464,9 @@ print("=== replace() ===")
 # 제거할 때는 인자의 두 번째를 ""(빈문자열)로 작성
 print("정 상 가 동".replace(" ", ""))  # 정상가동 (중간 공백 제거)
 print("   정       상 가 동 ".replace(" ", ""))  # 정상가동 (모든 공백 제거)
-print("   정       상 가 동 ".replace("  ", ""))  # 정 상 가 동  (공백이 2칸 붙어있는 경우만 제거)
+print(
+    "   정       상 가 동 ".replace("  ", "")
+)  # 정 상 가 동  (공백이 2칸 붙어있는 경우만 제거)
 
 # 글자 치환
 print("고장".replace("고장", "fault"))  # fault
@@ -524,7 +525,7 @@ print("=== join() ===")
 # "구분자".join(리스트)
 # 모든 요소가 합쳐져서 하나의 문자열로 반환
 
-fruits_list = ['딸기', '거봉', '키위', '사쿠란보']
+fruits_list = ["딸기", "거봉", "키위", "사쿠란보"]
 
 "-".join(fruits_list)  # "딸기-거봉-키위-사쿠란보"
 ",".join(fruits_list)  # "딸기,거봉,키위,사쿠란보"
