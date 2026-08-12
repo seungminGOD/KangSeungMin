@@ -1,90 +1,123 @@
-# 실습 1. 센서값 배열 만들기
+# 실습 1. CSV 불러오기 워밍업
 
-import numpy as np
+import pandas as pd
+import os
 
-miles = np.array([94.7, 89.3, 90.5, 88.7, 92.1])
+filepath = os.path.join("data", "12_metro_small.csv")
 
-print(miles * 1.60934)
-
-import numpy as np
-
-
-# 실습 2.
-
-gab_six = np.arange(0, 50, 10)
-print(gab_six)
-
-div_six = np.linspace(0, 40, 8)
-print(div_six)
-
-# 실습 3.
-
-import numpy as np
-
-check_point = np.arange(0, 100, 10)
-print(check_point)
+try:
+    df = pd.read_csv(
+        filepath,
+        encoding="utf-8",
+        usecols=["측정시각", "압축압력", "오일온도", "모터전류"],
+        parse_dates=["측정시각"],
+        nrows=8,
+    )
+    print(df.shape)  # (8, 4)
+    print(df.head())
+    print(df.dtypes)
+except FileNotFoundError:
+    print(f"파일이 없습니다 : {filepath}")
 
 
-# 실습 4.
+# 실습 2. 설비 센서 CSV 불러오기
+import pandas as pd
+import os
 
-import numpy as np
+# 12_metro_compressor.csv
+# 200행 7열 — 인덱스 3번 행 오일온도가 NaN
 
-apt_games = np.array([[3, 6, 9], [4, 8, 10]])
+filepath = os.path.join("data", "12_metro_compressor.csv")
+df_sensor = pd.read_csv(filepath, encoding="utf-8", parse_dates=["측정시각"])
 
-print(apt_games)
-# [[ 3  6  9]
-#  [ 4  8 10]]
-
-print(apt_games.ndim)
-
-print(apt_games.shape)
-
-print(apt_games.size)
-
-
-# 실습 5. 자료형 확인과 변환하기
-
-import numpy as np
-
-data = np.array([5343.232, 2950.332, 119.44])
-
-print(data.dtype)
-
-converted_data = data.astype(int)
-print(converted_data)
+print(df_sensor.columns.tolist())
+print(df_sensor.head(5))
+print(df_sensor.iloc[3])  # 오일온도 NaN 행 확인
+print(df_sensor.shape)  # (200, 7)
+print(df_sensor.isna().sum())
 
 
-# 실습 6. 배열 모양 바꾸기
+# 실습 3. 한글·구분자 깨짐 옵션 다루기
+# encoding과 sep으로 깨진 파일을 직접 해결
 
-import numpy as np
+# 세미콜론 구분 파일
+# sep 없이 읽으면 200행 1열, sep=";"이면 200행 7열
 
-numbers = np.arange(6)
-print(numbers)
+import pandas as pd
+import os
 
-converted_numbers = numbers.reshape(2, 3)
+filepath = os.path.join("data", "12_metro_compressor_semicolon.csv")
 
-print(converted_numbers)
+df_wrong = pd.read_csv(filepath, encoding="utf-8")
+print(df_wrong.shape)  # (200, 1)
 
-
-# 실습 7. 센서 데이터 표로 정리하기
-import numpy as np
-
-data = np.arange(10)
-
-converted_data = data.reshape(2, 5)
-
-print(converted_data)
+df = pd.read_csv(filepath, sep=";", encoding="utf-8")
+print(df.shape)  # (200, 7)
+print(df.columns.tolist())
+print(df.head(3))
 
 
-# 실습 8. 배열 생성부터 정리까지
+# 실습 4. 필요한 열만 골라 불러오기
+# G O A L usecols와 nrows로 열 많은 데이터에서 필요한 부분만
 
-import numpy as np
+# 압력 센서 3개 + 측정시각만 골라 불러오기
+# usecols + nrows → 15행 4열
 
-data = np.array([2.3, 7.9, 1.1, 5.8, 5.4, 7.6])
+import pandas as pd
+import os
 
-# shape과 dtype으로 구조 확인
-print(f"shape: {data.shape}")
-print(f"dtype: {data.dtype}")
+filepath = os.path.join("data", "12_metro_compressor.csv")
+df = pd.read_csv(
+    filepath,
+    encoding="utf-8",
+    usecols=["측정시각", "압축압력", "배출압력", "저장압력"],
+    parse_dates=["측정시각"],
+    nrows=15,
+)
+print(df.shape)  # (200, 7) -> (15, 4)
+print(df.columns.tolist())
+print(df.head(3))
+print(df.tail(2))
 
-converted = data.reshape(3, 2)
-print(converted)
+
+# 실습 5. 경로·옵션 오류 고치기
+# 오류 메시지를 읽고 스스로 원인을 찾아 고치기
+
+# data/ 누락, 철자, .csv 누락— 세 종류의 FileNotFoundError
+
+import pandas as pd
+
+df = pd.read_csv("너무어렵다.csv")  # FileNotFoundError
+print(df.shape)
+
+
+# 실습 6. read_csv 옵션 종합 연습
+# G O A L 경로· 인코딩· 구분자· 열 선택을 한 번에 적용
+
+# 세미콜론+한글 파일에서 필요한 열만
+# sep + encoding + usecols → 200행 3열
+
+# 여러 옵션을 함께 써서 shape 확인
+
+# -------------------------------------
+# 파일 : data 폴더 안의 12_metro_compressor_semicolon.csv
+# sep를 잘 사용해서 여러 컬럼이 읽히도록 해주세요
+# encoding도 지정해주세요
+# 모든 컬럼을 다 읽지는 마시고, '측정시각', '오일온도', '모터전류' 컬럼만 읽어주세요
+
+import pandas as pd
+import os
+
+filepath = os.path.join("data", "12_metro_compressor_semicolon.csv")
+df = pd.read_csv(
+    filepath,
+    sep=";",
+    encoding="utf-8",
+    usecols=["측정시각", "오일온도", "모터전류"],
+    parse_dates=["측정시각"],
+)
+
+print(df.shape)  # (200, 3)
+print(df.dtypes)
+print(df.head(3))
+print(df.isna().sum())  # 오일온도 NaN 1개
