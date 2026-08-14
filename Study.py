@@ -1,35 +1,32 @@
-# Study.py — 4단계: if / else (조건문)
+# Study.py — 5단계: for 반복문
 
 # =============================================================================
 # [개념]
-# - 조건이 참이면 if 블록 실행, 아니면 else 실행
-# - 들여쓰기(탭/스pace 4칸) 필수!
+# - for 변수 in range(횟수):  → 정해진 횟수만큼 반복
+# - range(5)        → 0, 1, 2, 3, 4
+# - range(1, 6)     → 1, 2, 3, 4, 5  (끝 숫자는 제외)
+# - 들여쓰기 필수!
 # =============================================================================
 
-# score = 75
-# if score >= 60:
-#     print("합격")
-# else:
-#     print("불합격")
+# for i in range(3):
+#     print(i)          # 0, 1, 2
+
+# for n in range(1, 4):
+#     print(n)          # 1, 2, 3
 
 
 # =============================================================================
 # [연습] — 필요할 때만 주석 풀기 (2개만)
 # =============================================================================
 
-# 연습 1.
-# age = 20
-# if age >= 19:
-#     print("성인")
-# else:
-#     print("미성년")
+# 연습 1. 0~4 출력
+# for i in range(5):
+#     print(i)
 
-# 연습 2.
-# temp = 85
-# if temp > 80:
-#     print("과열")
-# else:
-#     print("정상")
+
+# 연습 2. 1~5 출력
+# for i in range(1, 6):
+#     print(i)
 
 
 # =============================================================================
@@ -38,135 +35,112 @@
 
 # ── 보통 ──────────────────────────────────────────────────
 
-# 1. rpm=4500 → 4000 초과면 "과다", 아니면 "정상" 출력
-# (여기에 작성)
-rpm = 4500
-if rpm > 4000:
-    print("과다")
-else:
-    print("정상")
-
-# 2. oil=55 → 60 미만이면 "저온", 아니면 "정상" 출력
-# (여기에 작성)
-oil = 55
-if oil < 60:
-    print("저온")
-else:
-    print("정상")
-
-
-# 3. quality="불량" → 불량이면 "재작업", 아니면 "출하" 출력
-#    (글자 비교는 == 사용, 예: quality == "불량")
+# 1. for로 1, 2, 3 출력 (range 사용)
 # (여기에 작성)
 
-quality = "불량"
-if quality == "불량":
-    print("재작업")
-else:
-    print("출하")
+for i in range(1, 4):
+    print(i)
 
-# 4. motor=0.03 → 0.05 미만이면 "정지", 아니면 "가동" 출력
+# 2. for로 "측정" 이라는 글자를 3번 출력
 # (여기에 작성)
-motor = 0.03
-if motor < 0.05:
-    print("정지")
-else:
-    print("가동")
 
-# 5. cycle=650 → 100 초과면 "이상", 아니면 "정상" 출력
-# (여기에 작성)
-cycle = 650
-if cycle > 100:
-    print("이상")
+for i in range(3):
+    print("출력")
 
-# 6. force=250 → 240 이상이면 "양호", 아니면 "부족" 출력
+# 3. total=0 시작 → for로 1+2+3+4+5 더해서 total 출력
+#    힌트: total = total + i
 # (여기에 작성)
 
 
-# 7. count=0 → count가 0이면 "데이터 없음", 아니면 "데이터 있음"
-#    힌트: 같음은 ==
+# 4. for i in range(0, 10, 2):  → 0,2,4,6,8 출력
+#    (range 시작, 끝, 간격) 주석 풀고 결과 확인만 해도 OK
+#    직접 for문 작성해서 같은 결과 내기
 # (여기에 작성)
 
-count = 0
-if count == 0:
-    print("데이터 없음")
-else:
-    print("데이터 있음")
+
+# 5. temps = [55, 62, 71, 68] → for로 하나씩 출력
+#    힌트: for t in temps:
+# (여기에 작성)
+
+temps = [55, 62, 71, 68]
+for t in temps:
+    print(t)
+
+
+# 6. temps = [55, 62, 71, 68] → 70 초과일 때만 "과열" 출력
+#    (if + for 합치기)
+# (여기에 작성)
+
+temps = [55, 62, 71, 68]
+for t in temps:
+    if t > 70:
+        print("과열")
+
+
+# 7. for로 5번 반복하며 "샷", 번호 출력
+#    예: 샷 1 / 샷 2 / ... / 샷 5
+#    힌트: print("샷", i)
+# (여기에 작성)
+
+for i in range(1, 6):
+    print("샷", i)
 
 
 # ── 매우 어려움 ──────────────────────────────────────────
 
-# 8. score=87 → elif로 등급 출력
-#    90 이상 "A" / 80 이상 "B" / 70 이상 "C" / 나머지 "D"
-#    힌트: if → elif → elif → else 순서
+# 8. 1~10 합계를 for로 구해서 print
+#    정답: 55
 # (여기에 작성)
 
-score = 87
-if score >= 90:
-    print("A")
-elif score >= 80:
-    print("B")
-elif score >= 70:
-    print("C")
-
-else:
-    print("D")
-
-# 9. rpm=4200, torque=8 → 두 조건 모두 만족할 때만 "위험" 출력
-#    조건: rpm > 4000 이고 torque < 15
-#    힌트: and 사용  →  if rpm > 4000 and torque < 15:
-#    하나라도 아니면 "안전" 출력
-# (여기에 작성)
-rpm = 4200
-torque = 8
-if rpm > 4000 and torque < 15:
-    print("위험")
-else:
-    print("안전")
+total = 0
+for i in range(1, 11):
+    total += i
+print(total)
 
 
-# 10. cylinder=108, cast=522 → 불량 판정 프로그램
-#     ① defect = cast / cylinder  (실린더 대비 주조압력 비율)
-#     ② defect가 6.0 이상이면 "비율 이상"
-#        아니면 "비율 정상" 출력
-#     ③ 그 다음 줄에서 cylinder가 150 미만이면 "압력 부족" 추가 출력
-#        (if를 2번 써도 됨)
+# 9. rpm_list = [3200, 4500, 2800, 5100, 3900]
+#    for로 돌며 4000 초과 개수 세기 → print
+#    힌트: count=0 시작, if 만족하면 count += 1
+#    정답: 2
 # (여기에 작성)
 
-cylinder = 108
-cast = 522
-defect = cast / cylinder
+rpm_list = [3200, 4500, 2800, 5100, 3900]
+count = 0
 
-if defect >= 6.0:
-    print("비율 이상")
-elif cylinder < 150:
-    print("압력 부족")
-else:
-    print("비율 정상")
+
+# 10. scores = [88, 72, 95, 61, 83]
+#     for + if/elif로 각 점수 등급 출력 (한 줄에 하나씩)
+#     90↑ A / 80↑ B / 70↑ C / 나머지 D
+#     예상 출력: B, C, A, D, B (각각 print)
+# (여기에 작성)
+
 
 # =============================================================================
 # [정답] — 다 해본 뒤에만 확인!
 # =============================================================================
-# 1. rpm=4500  /  if rpm>4000: print("과다") else: print("정상")
-# 2. oil=55  /  if oil<60: print("저온") else: print("정상")
-# 3. quality="불량"  /  if quality=="불량": print("재작업") else: print("출하")
-# 4. motor=0.03  /  if motor<0.05: print("정지") else: print("가동")
-# 5. cycle=650  /  if cycle>100: print("이상") else: print("정상")
-# 6. force=250  /  if force>=240: print("양호") else: print("부족")
-# 7. count=0  /  if count==0: print("데이터 없음") else: print("데이터 있음")
+# 1. for i in range(1, 4): print(i)
+# 2. for i in range(3): print("측정")
+# 3. total=0
+#    for i in range(1, 6): total = total + i
+#    print(total)
+# 4. for i in range(0, 10, 2): print(i)
+# 5. temps=[55,62,71,68]
+#    for t in temps: print(t)
+# 6. for t in temps:
+#        if t > 70: print("과열")
+# 7. for i in range(1, 6): print("샷", i)
 #
-# 8. score=87
-#    if score>=90: print("A")
-#    elif score>=80: print("B")
-#    elif score>=70: print("C")
-#    else: print("D")
-#
-# 9. rpm=4200  /  torque=8
-#    if rpm>4000 and torque<15: print("위험")
-#    else: print("안전")
-#
-# 10. cylinder=108  /  cast=522
-#     defect = cast / cylinder
-#     if defect >= 6.0: print("비율 이상")
-#     else: print("비율 정상")
-#     if cylinder < 150: print("압력 부족")
+# 8. total=0
+#    for i in range(1, 11): total += i
+#    print(total)
+# 9. rpm_list=[3200,4500,2800,5100,3900]
+#    count=0
+#    for r in rpm_list:
+#        if r > 4000: count += 1
+#    print(count)
+# 10. scores=[88,72,95,61,83]
+#     for s in scores:
+#         if s>=90: print("A")
+#         elif s>=80: print("B")
+#         elif s>=70: print("C")
+#         else: print("D")
