@@ -1,183 +1,75 @@
 import pandas as pd
 
-# =========================================================
-# 실습 1. dropna로 행·열 삭제
-# 결측 있는 행과 열을 삭제하고 크기 변화 확인
-# =========================================================
-print("=========================================================")
-print("실습 1. dropna로 행·열 삭제")
-print("결측 있는 행과 열을 삭제하고 크기 변화 확인")
-print("=========================================================")
+CD = "data/16_diecasting.csv"
 
-df = pd.read_csv("data/15_02_사출성형_공정.csv", encoding="utf-8")
-df.info()
-
-# 원본 크기를 shape로 확인
-print(df.shape)
-
-# dropna로 결측 있는 행을 모두 삭제
-print(df.dropna().shape)
-
-# 방향을 열로 바꿔 결측 있는 열을 삭제
-print(df.dropna(axis=1).shape)
+df = pd.read_csv(CD)
 
 
-# =========================================================
-# 실습 2. dropna 옵션 조절
-# how·thresh·subset로 삭제 기준을 세밀하게 조절
-# =========================================================
-print("=========================================================")
-print("실습 2. dropna 옵션 조절")
-print("how·thresh·subset로 삭제 기준을 세밀하게 조절")
-print("=========================================================")
+# ===== 실습 1 =====
+Q1 = df["사이클타임"].quantile(0.25)
+Q3 = df["사이클타임"].quantile(0.75)
 
-# how로 완전히 빈 행만 삭제하는 기준 적용 -> how = 'all'
-print(df.dropna(how="all").shape)
-# 250개 row가 다 살아남았다는 의미
-# : NaN으로 모든 컬럼 내용이 다 채워진 row가 없다는 뜻
+IQR = Q3 - Q1
+lower = Q1 - 1.5 * IQR
+upper = Q3 + 1.5 * IQR
 
-# thresh로 값이 일정(예, 20개) 개수 "이상"인 행만 남기기 -> thresh = 20
-print(df.dropna(thresh=20).shape)
-# 250 - 162 = 88개 row는 NaN이 3개 이상이라는 뜻
-
-# subset으로 특정 컬럼이 빈 행만 삭제
-# 예, 불량여부 컬럼에 NaN이 있는 row들만 제거 -> subset = ['불량여부']
-print(df.dropna(subset=["불량여부"]).shape)
-# '불량여부' 컬럼에는 NaN이 하나도 없다고 판단 가능
+print("실습 1")
+print(round(Q1, 2), round(Q3, 2), round(IQR, 2))
+print(round(lower, 2), round(upper, 2))
 
 
-# =========================================================
-# 실습 3. 결측 비율 기준 컬럼 제거
-# 결측 비율이 높은 컬럼만 골라 제거
-# =========================================================
-print("=========================================================")
-print("실습 3. 결측 비율 기준 컬럼 제거")
-print("결측 비율이 높은 컬럼만 골라 제거")
-print("=========================================================")
+# ===== 실습 2 =====
+mask = (df["사이클타임"] < lower) | (df["사이클타임"] > upper)
 
-df = pd.read_csv("data/15_02_사출성형_공정.csv", encoding="utf-8")
-print(df.shape)
-print(df.isna().sum())
-
-# 컬럼별 결측 비율을 계산
-df_rate = df.isna().sum() / len(df)
-print(df_rate)
-
-# 비율이 기준을 넘는 컬럼 이름만 목록으로 뽑기
-# -> 40% 이상 NaN으로 채워진 컬럼 목록
-df_terminates = df_rate[df_rate > 0.4]
-print(df_terminates)
-
-# 최초 컬럼 이름들이 df_terminates의 index labels가 되었다.
-list_terminates = df_terminates.index.tolist()
-print(list_terminates)
-
-# 그 컬럼들을 drop으로 제거하고 크기 확인
-# drop에 컬럼을 제시하면 기본동작 : 컬럼을 지워버림
-df_final = df.drop(columns=list_terminates)
-df_final.info()
+print("\n실습 2")
+print(df[mask][["샷", "사이클타임", "상태"]])
+print(mask.sum(), round(mask.mean() * 100, 1))
 
 
-# =========================================================
-# 실습 5. fillna 평균·중앙값 대체
-# 결측을 평균과 중앙값으로 채우고 차이 이해
-# =========================================================
-print("=========================================================")
-print("실습 5. fillna 평균·중앙값 대체")
-print("결측을 평균과 중앙값으로 채우고 차이 이해")
-print("=========================================================")
-
-df = pd.read_csv("data/15_02_사출성형_공정.csv", encoding="utf-8")
-print(df["최대사출압"].isna().sum())
-
-# 대상 컬럼의 평균과 중앙값을 각각 구해 비교
-# fillna로 평균을 채운 결과 만들기
-mean = df["최대사출압"].mean()
-print(f"최대사출압의 평균 : {mean}")
-
-s_fillmean = df["최대사출압"].fillna(mean)
-print(s_fillmean)
-df["최대사출압"] = s_fillmean
-print(df["최대사출압"].isna().sum())
-
-# fillna로 중앙값을 채운 결과 만들기(이상치에 강함)
-median = df["최대사출압"].median()
-print(f"최대사출압의 중앙값 : {median}")
-
-s_fillmedian = df["최대사출압"].fillna(median)
-print(s_fillmedian)
-df["최대사출압"] = s_fillmedian
-print(df["최대사출압"].isna().sum())
+# ===== 실습 3 =====
+print("\n실습 3")
+print("matplotlib 실습이라 생략")
 
 
-# =========================================================
-# 실습 6. 최빈값·앞뒤 값 대체
-# 범주형은 최빈값, 시계열은 앞뒤 값으로 채우기
-# =========================================================
-print("=========================================================")
-print("실습 6. 최빈값·앞뒤 값 대체")
-print("범주형은 최빈값, 시계열은 앞뒤 값으로 채우기")
-print("=========================================================")
+# ===== 실습 4 =====
+정상 = df[~mask]
 
-df = pd.read_csv("data/15_02_사출성형_공정.csv", encoding="utf-8")
-
-# 범주형 열의 최빈값을 구해 채우기
-# 사출기 컬럼은 1호기~3호기 범주형으로 판단
-print(df["사출기"].isna().sum())
-print(df["사출기"].mode()[0])
-
-df["사출기"] = df["사출기"].fillna(df["사출기"].mode()[0])
-print(df["사출기"].isna().sum())
-
-# 측정시각 순으로 정렬해 시계열 순서 만들기
-df = df.sort_values("측정시각")
-
-# ffill로 앞 값, bfill로 남은 앞쪽 결측까지 채우기
-print(df["전환압력"].isna().sum())
-df["전환압력"] = df["전환압력"].ffill().bfill()  # 자주 볼 시계열 채우기 패턴
-print(df["전환압력"].isna().sum())
+print("\n실습 4")
+print(len(df), len(정상))
+print(round(df["사이클타임"].mean(), 2))
+print(round(정상["사이클타임"].mean(), 2))
 
 
-# =========================================================
-# 실습 8. 제거 vs 대체 비교
-# 같은 데이터에 제거와 대체를 적용해 결과 비교
-# =========================================================
-print("=========================================================")
-print("실습 8. 제거 vs 대체 비교")
-print("같은 데이터에 제거와 대체를 적용해 결과 비교")
-print("=========================================================")
+# ===== 실습 5 =====
+보정 = df["사이클타임"].clip(lower=lower, upper=upper)
 
-df = pd.read_csv("data/15_02_사출성형_공정.csv", encoding="utf-8")
-
-# 결측 심한 컬럼을 먼저 뺀 기준 데이터 만들기
-print(df.isna().sum())
-기준 = df.drop(columns=["최대사출속도", "감압시간"])
-기준.info()
-print(기준.shape)
-
-# 기준 데이터에서 결측 행을 삭제한 제거 버전 만들기
-제거판 = 기준.dropna()
-print(제거판.shape)
-
-# 기준 데이터의 결측을 중앙값으로 채운 대체 버전 만들기
-대체판 = 기준.fillna(기준.median(numeric_only=True))
-print(대체판.shape)
+print("\n실습 5")
+print(round(보정.min(), 2), round(보정.max(), 2))
+print(round(보정.mean(), 2))
 
 
-# =========================================================
-# 실습 9. SECOM·AI4I 종합 처리
-# 제거와 대체를 조합해 전체 결측을 처리하고 저장
-# =========================================================
-print("=========================================================")
-print("실습 9. SECOM·AI4I 종합 처리")
-print("제거와 대체를 조합해 전체 결측을 처리하고 저장")
-print("=========================================================")
+# ===== 실습 6 =====
+Q1 = df["실린더압력"].quantile(0.25)
+Q3 = df["실린더압력"].quantile(0.75)
 
-# 결측 비율 높은 컬럼을 제거하고 나머지는 중앙값으로 채우기
-# 앞서 처리한 대체판 재사용
+IQR = Q3 - Q1
+L = Q1 - 1.5 * IQR
+U = Q3 + 1.5 * IQR
 
-# 처리 후 남은 결측과 크기를 확인하고 파일로 저장
-print(대체판.isna().sum().sum())
-대체판.to_csv("data/15_02_사출성형_공정_clean.csv", index=False, encoding="utf-8")
+m = (df["실린더압력"] < L) | (df["실린더압력"] > U)
 
-# 같은 절차를 AI4I 데이터에도 반복해 결측 0 확인
+채움 = df["실린더압력"].mask(m)
+채움 = 채움.fillna(채움.median())
+
+print("\n실습 6")
+print(round(df["실린더압력"].mean(), 2))
+print(round(df[~m]["실린더압력"].mean(), 2))
+print(round(df["실린더압력"].clip(L, U).mean(), 2))
+print(round(채움.mean(), 2))
+
+
+# ===== 실습 7 =====
+print("\n실습 7")
+print(df.duplicated().sum())
+print(df[df.duplicated()])
+print(df.duplicated(keep=False).sum())

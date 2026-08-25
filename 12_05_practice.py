@@ -6,6 +6,6 @@
 
 import pandas as pd
 
-df = pd.read_csv('data/12_metro_compressor_semicolon.csv', sep=';', encoding='utf-8')
-print(df.shape) # (200, 1)
+df = pd.read_csv("data/12_metro_compressor_semicolon.csv", sep=";", encoding="utf-8")
+print(df.shape)  # (200, 1)
 print(df.head(4))
